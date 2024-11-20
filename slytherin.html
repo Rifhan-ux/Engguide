@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Slytherin</title>
+  <style>
+    /* ตั้งค่าให้เต็มหน้าจอ */
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Times New Roman', serif;
+      background: #0C3E35;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      text-align: center;
+      overflow: hidden; /* ปิดการเลื่อน */
+      position: relative;
+    }
+
+    /* ชื่อบ้าน */
+    .house-name {
+      font-size: 3em;
+      font-weight: bold;
+      margin: 0;
+      text-align: center;
+      z-index: 2;
+      text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5); /* เงา */
+    }
+
+    #particles-js {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1; /* อยู่ด้านหลังเนื้อหา */
+    }
+
+    .house-logo {
+      width: 200px;
+      height: auto;
+      margin-bottom: 20px;
+      z-index: 2;
+    }
+
+    .poem {
+      margin: 20px 0;
+      font-size: 1.2em;
+      line-height: 1.5;
+      white-space: pre-wrap; /* บรรทัดใหม่ใน HTML */
+      z-index: 2;
+    }
+
+    .toggle-button {
+      padding: 10px 20px;
+      font-size: 1em;
+      background-color: #fff;
+      color: #0C3E35;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      z-index: 2;
+    }
+
+    .toggle-button:hover {
+      background-color: #ddd;
+    }
+  </style>
+</head>
+<body>
+  <!-- Div สำหรับอนิเมชั่นอนุภาค -->
+  <div id="particles-js"></div>
+
+  <!-- ชื่อบ้าน -->
+  <h1 class="house-name">Slytherin</h1>
+
+  <!-- โลโก้บ้าน Slytherin -->
+  <img class="house-logo" src="Slytherin_logo.png" alt="Slytherin Logo">
+
+  <!-- กลอน -->
+  <div id="poem" class="poem">
+สู่ Slytherin ผู้ยิ่งใหญ่,  
+ทะเยอทะยานสู่ฝันจริง,  
+ไหวพริบเด่นกล้าประวิง,  
+สมเป็นสิ่งแห่งผู้นำ!
+  </div>
+
+  <!-- ปุ่มเปลี่ยนภาษา -->
+  <button class="toggle-button" onclick="toggleLanguage()">เปลี่ยนเป็นภาษาอังกฤษ</button>
+
+  <script>
+    let isThai = true;
+
+    function toggleLanguage() {
+      const poemElement = document.getElementById('poem');
+      const buttonElement = document.querySelector('.toggle-button');
+
+      if (isThai) {
+        poemElement.textContent = `Welcome to Slytherin's domain  
+Where ambition burns and dreams remain  
+With cunning sharp and clever gain  
+The path to greatness you shall claim!`;
+        buttonElement.textContent = 'เปลี่ยนเป็นภาษาไทย';
+      } else {
+        poemElement.textContent = `สู่ Slytherin ผู้ยิ่งใหญ่,  
+ทะเยอทะยานสู่ฝันจริง,  
+ไหวพริบเด่นกล้าประวิง,  
+สมเป็นสิ่งแห่งผู้นำ!`;
+        buttonElement.textContent = 'Change to English';
+      }
+      isThai = !isThai;
+    }
+  </script>
+
+  <!-- Particles.js ไลบรารี -->
+  <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+  <script>
+    particlesJS('particles-js', {
+      particles: {
+        number: {
+          value: 100, // จำนวนอนุภาค
+          density: {
+            enable: true,
+            value_area: 800
+          }
+        },
+        color: {
+          value: "#00ff00" // สีอนุภาค (เขียวเหมือนงู)
+        },
+        shape: {
+          type: "circle", // รูปแบบอนุภาค (เปลี่ยนได้ เช่น star หรือ triangle)
+          stroke: {
+            width: 0,
+            color: "#000000"
+          }
+        },
+        opacity: {
+          value: 0.5,
+          random: true
+        },
+        size: {
+          value: 4,
+          random: true
+        },
+        line_linked: {
+          enable: true, // เส้นเชื่อมอนุภาค
+          distance: 150,
+          color: "#00ff00",
+          opacity: 0.4,
+          width: 1
+        },
+        move: {
+          enable: true,
+          speed: 3, // ความเร็วการเคลื่อนที่
+          direction: "none",
+          random: false,
+          straight: false,
+          out_mode: "out",
+          bounce: false
+        }
+      },
+      interactivity: {
+        detect_on: "canvas",
+        events: {
+          onhover: {
+            enable: true,
+            mode: "repulse" // ผลักอนุภาคเมื่อเอาเมาส์ไปชี้
+          },
+          onclick: {
+            enable: true,
+            mode: "push" // เพิ่มอนุภาคเมื่อคลิก
+          }
+        },
+        modes: {
+          repulse: {
+            distance: 100,
+            duration: 0.4
+          },
+          push: {
+            particles_nb: 4
+          }
+        }
+      },
+      retina_detect: true
+    });
+  </script>
+</body>
+</html>

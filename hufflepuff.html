@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hufflepuff</title>
+  <style>
+    /* ตั้งค่าพื้นฐาน */
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Times New Roman', serif;
+      background: #B5803E; /* สีทองของ Hufflepuff */
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      overflow: hidden; /* ปิดการเลื่อน */
+    }
+
+    /* ชื่อบ้าน */
+    .house-name {
+      font-size: 3em; /* ขนาดตัวอักษรใหญ่ */
+      font-weight: bold;
+      margin: 0;
+      text-align: center;
+      z-index: 2;
+      text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5); /* เงา */
+    }
+
+    /* พื้นที่ของฟองอากาศ */
+    #bubbles {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1; /* อยู่ด้านหลังเนื้อหา */
+      overflow: hidden;
+    }
+
+    .bubble {
+      position: absolute;
+      bottom: -100px; /* เริ่มจากนอกหน้าจอ */
+      width: 20px;
+      height: 20px;
+      background: rgba(255, 255, 255, 0.5); /* สีฟองโปร่งแสง */
+      border-radius: 50%;
+      animation: rise 10s linear infinite; /* การลอยขึ้น */
+    }
+
+    /* เพิ่มความหลากหลายของขนาดฟอง */
+    .bubble:nth-child(odd) {
+      width: 30px;
+      height: 30px;
+      animation-duration: 12s;
+    }
+
+    /* อนิเมชั่นฟองลอยขึ้น */
+    @keyframes rise {
+      0% {
+        transform: translateX(0) translateY(0) scale(1);
+        opacity: 1;
+      }
+      50% {
+        opacity: 0.8;
+      }
+      100% {
+        transform: translateX(-50px) translateY(-100vh) scale(0.8);
+        opacity: 0; /* จางหายไปเมื่อถึงขอบจอ */
+      }
+    }
+
+    /* โลโก้บ้าน */
+    .house-logo {
+      width: 200px;
+      height: auto;
+      margin-bottom: 20px;
+    }
+
+    /* กลอน */
+    .poem {
+      margin: 20px 0;
+      font-size: 1.2em;
+      line-height: 1.5;
+      text-align: center;
+      white-space: pre-wrap; /* ให้แสดงผลการเว้นบรรทัด */
+    }
+
+    /* ปุ่ม */
+    .toggle-button {
+      padding: 10px 20px;
+      font-size: 1em;
+      background-color: #fff;
+      color: #B5803E;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .toggle-button:hover {
+      background-color: #ddd;
+    }
+  </style>
+</head>
+<body>
+  <!-- พื้นหลังฟองอากาศ -->
+  <div id="bubbles"></div>
+
+  <!-- ชื่อบ้าน -->
+  <h1 class="house-name">Hufflepuff</h1>
+
+  <!-- โลโก้บ้าน -->
+  <img class="house-logo" src="Hufflepuff_logo.png" alt="Hufflepuff Logo">
+
+  <!-- กลอน -->
+  <div id="poem" class="poem">
+สู่ Hufflepuff ผู้จริงใจ,  
+ซื่อสัตย์มั่นและพร้อมให้,  
+ความอบอุ่นอยู่เคียงใกล้,  
+มิตรภาพไซร้ไม่สิ้นคลาย!
+  </div>
+
+  <!-- ปุ่มเปลี่ยนภาษา -->
+  <button class="toggle-button" onclick="toggleLanguage()">เปลี่ยนเป็นภาษาอังกฤษ</button>
+
+  <script>
+    let isThai = true;
+
+    function toggleLanguage() {
+      const poemElement = document.getElementById('poem');
+      const buttonElement = document.querySelector('.toggle-button');
+
+      if (isThai) {
+        poemElement.textContent = `To Hufflepuff, the kind and true  
+Where loyalty and warmth shine through  
+Friendships bloom and hearts align  
+A place of peace, forever kind!`;
+        buttonElement.textContent = 'เปลี่ยนเป็นภาษาไทย';
+      } else {
+        poemElement.textContent = `สู่ Hufflepuff ผู้จริงใจ,  
+ซื่อสัตย์มั่นและพร้อมให้,  
+ความอบอุ่นอยู่เคียงใกล้,  
+มิตรภาพไซร้ไม่สิ้นคลาย!`;
+        buttonElement.textContent = 'Change to English';
+      }
+      isThai = !isThai;
+    }
+
+    // สร้างฟองอากาศ
+    function createBubble() {
+      const bubbleContainer = document.getElementById('bubbles');
+      const bubble = document.createElement('div');
+      bubble.classList.add('bubble');
+      bubble.style.left = `${Math.random() * 100}vw`; // ตำแหน่งแนวนอนแบบสุ่ม
+      bubble.style.animationDelay = `${Math.random() * 5}s`; // เริ่มเวลาแตกต่างกัน
+      bubbleContainer.appendChild(bubble);
+
+      // ลบฟองเมื่อออกนอกจอ
+      bubble.addEventListener('animationend', () => {
+        bubble.remove();
+      });
+    }
+
+    // สร้างฟองใหม่ทุก 300ms
+    setInterval(createBubble, 300);
+  </script>
+</body>
+</html>
