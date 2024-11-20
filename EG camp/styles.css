@@ -1,0 +1,169 @@
+/* พื้นหลังและสไตล์ทั่วไป */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Times New Roman', serif;
+  background: #000;
+  color: white;
+  overflow: hidden;
+}
+
+canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+}
+
+/* Overlay สำหรับเอฟเฟกต์สี */
+#overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: transparent;
+  transition: background-color 1s ease-out;
+  pointer-events: none;
+  z-index: 9999;
+}
+
+#overlay.gryffindor {
+  background-color: rgba(255, 0, 0, 0.8);
+}
+
+#overlay.slytherin {
+  background-color: rgba(0, 128, 0, 0.8);
+}
+
+#overlay.ravenclaw {
+  background-color: rgba(0, 0, 128, 0.8);
+}
+
+#overlay.hufflepuff {
+  background-color: rgba(255, 215, 0, 0.8);
+}
+
+/* คอนเทนต์ */
+.content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  text-align: center;
+}
+
+.sorting-hat img {
+  width: 200px;
+  animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+/* ปุ่มและอินพุต */
+.btn {
+  margin-top: 20px;
+  padding: 10px 20px;
+  font-size: 1em;
+  color: #fff;
+  background: #6A5ACD;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.btn:hover {
+  background: #836FFF;
+}
+
+input {
+  margin: 10px 0;
+  padding: 10px;
+  width: 80%;
+  max-width: 300px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+@keyframes sparkle {
+  0% { opacity: 1; }
+  100% { opacity: 0; transform: scale(2); }
+}
+
+
+
+
+
+/* Loading screen styles */
+#loadingScreen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: black;
+  color: white;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  z-index: 1000;
+}
+
+#loadingText {
+  font-size: 2em;
+  font-family: 'Times New Roman', serif;
+  animation: pulse 1.5s infinite;
+}
+
+/* Sparkle Effect */
+#sparkles {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1001;
+}
+
+.sparkle {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background: radial-gradient(circle, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0) 70%);
+  border-radius: 50%;
+  animation: sparkleAnimation 2s infinite ease-in-out;
+}
+
+@keyframes sparkleAnimation {
+  0% {
+    transform: scale(0.5);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.5);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(0.5);
+    opacity: 0;
+  }
+}
+
+/* Pulse animation for Loading text */
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+

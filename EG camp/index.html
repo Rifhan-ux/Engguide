@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sorting Hat</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <canvas id="particleCanvas"></canvas>
+  <div class="content">
+    <h1>Welcome to the Sorting Hat</h1>
+    <div class="sorting-hat">
+      <img src="sorting_hat.png" alt="Sorting Hat">
+    </div>
+    <p>The Sorting Hat is ready to place you into a house</p>
+    <input type="text" id="name" placeholder="Enter your name" required>
+    <input type="password" id="password" placeholder="Enter your ID number" required>
+    <button class="btn" onclick="sortHouse()">Continue</button>
+  </div>
+
+  <!-- Loading screen -->
+  <div id="loadingScreen">
+    <div id="loadingText">You are...</div>
+    <div id="sparkles"></div>
+  </div>
+
+  <script>
+    // Sparkle generation for loading screen
+    const sparklesContainer = document.getElementById('sparkles');
+    function createSparkles() {
+      for (let i = 0; i < 50; i++) {
+        const sparkle = document.createElement('div');
+        sparkle.classList.add('sparkle');
+        sparkle.style.top = `${Math.random() * 100}%`;
+        sparkle.style.left = `${Math.random() * 100}%`;
+        sparklesContainer.appendChild(sparkle);
+
+        // Remove sparkles after animation
+        setTimeout(() => sparkle.remove(), 2000);
+      }
+    }
+    createSparkles();
+  </script>
+  <script src="combined.js"></script>
+</body>
+</html>

@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ravenclaw</title>
+  <style>
+    /* ตั้งค่าให้เต็มหน้าจอ */
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Times New Roman', serif;
+      background: #18314F;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      overflow: hidden; /* ปิดการเลื่อน */
+      position: relative;
+    }
+
+    /* ชื่อบ้าน */
+    .house-name {
+      font-size: 3em; /* ขนาดตัวอักษรใหญ่ */
+      font-weight: bold;
+      margin: 0;
+      text-align: center;
+      z-index: 2;
+      text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5); /* เงา */
+    }
+
+    .house-logo {
+      width: 200px;
+      height: auto;
+      margin-bottom: 20px;
+      z-index: 2;
+    }
+
+    .poem {
+      margin: 20px 0;
+      font-size: 1.2em;
+      line-height: 1.5;
+      text-align: center;
+      white-space: pre-wrap; /* ให้แสดงผลการเว้นบรรทัด */
+      z-index: 2;
+    }
+
+    .toggle-button {
+      padding: 10px 20px;
+      font-size: 1em;
+      background-color: #fff;
+      color: #18314F;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      z-index: 2;
+    }
+
+    .toggle-button:hover {
+      background-color: #ddd;
+    }
+
+    /* เอฟเฟกต์พื้นหลัง */
+    #starfield {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1; /* อยู่ด้านหลังเนื้อหา */
+      overflow: hidden;
+      background: radial-gradient(circle at center, #1B2C43, #0F1824); /* สีพื้นหลัง */
+    }
+
+    .star {
+      position: absolute;
+      background: #fff;
+      border-radius: 50%;
+      animation: move 5s linear infinite;
+    }
+
+    @keyframes move {
+      from {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+      }
+      to {
+        transform: translateY(100vh) scale(0.5);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- พื้นหลังดวงดาว -->
+  <div id="starfield"></div>
+
+  <!-- ชื่อบ้าน -->
+  <h1 class="house-name">Ravenclaw</h1>
+
+  <!-- โลโก้บ้าน -->
+  <img class="house-logo" src="Ravenclaw_logo.png" alt="Ravenclaw Logo">
+
+  <!-- กลอน -->
+  <div id="poem" class="poem">
+สู่ Ravenclaw อันล้ำค่า,  
+ปัญญาแกร่งและหัวใจ,  
+เติมความฝันพุ่งไปไกล,  
+แสงความรู้สู่เบื้องบน!
+  </div>
+
+  <!-- ปุ่มเปลี่ยนภาษา -->
+  <button class="toggle-button" onclick="toggleLanguage()">เปลี่ยนเป็นภาษาอังกฤษ</button>
+
+  <script>
+    let isThai = true;
+
+    function toggleLanguage() {
+      const poemElement = document.getElementById('poem');
+      const buttonElement = document.querySelector('.toggle-button');
+
+      if (isThai) {
+        poemElement.textContent = `To Ravenclaw, the house of mind  
+With wisdom strong and heart refined  
+Dreams take flight to skies untold  
+Knowledge shines, a light so bold!`;
+        buttonElement.textContent = 'เปลี่ยนเป็นภาษาไทย';
+      } else {
+        poemElement.textContent = `สู่ Ravenclaw อันล้ำค่า  
+ปัญญาแกร่งและหัวใจ  
+เติมความฝันพุ่งไปไกล  
+แสงความรู้สู่เบื้องบน!`;
+        buttonElement.textContent = 'Change to English';
+      }
+      isThai = !isThai;
+    }
+
+    // สร้างดวงดาวในพื้นหลัง
+    function createStar() {
+      const starField = document.getElementById('starfield');
+      const star = document.createElement('div');
+      const size = Math.random() * 3 + 1; // ขนาดของดวงดาว (1-4px)
+      star.classList.add('star');
+      star.style.width = `${size}px`;
+      star.style.height = `${size}px`;
+      star.style.top = `${Math.random() * 100}vh`; // ตำแหน่งสุ่มในแนวตั้ง
+      star.style.left = `${Math.random() * 100}vw`; // ตำแหน่งสุ่มในแนวนอน
+      star.style.animationDuration = `${Math.random() * 5 + 2}s`; // ความเร็วในการเลื่อน
+      starField.appendChild(star);
+
+      // ลบดวงดาวเมื่อออกจากหน้าจอ
+      star.addEventListener('animationend', () => {
+        star.remove();
+      });
+    }
+
+    // เพิ่มดวงดาวซ้ำทุก 100ms
+    setInterval(createStar, 100);
+  </script>
+</body>
+</html>
