@@ -14,15 +14,26 @@
       <img src="sorting_hat.png" alt="Sorting Hat">
     </div>
     <p>The Sorting Hat is ready to place you into a house</p>
-    <input type="text" id="name" placeholder="Enter your name" required>
-    <input type="password" id="password" placeholder="Enter your ID number" required>
+    <input type="text" id="name" placeholder="Enter your name and surname" required>
+    <input type="password" id="password" placeholder="Enter your student ID number" required>
     <button class="btn" onclick="sortHouse()">Continue</button>
   </div>
 
+  <div id="subtitles"></div>
+  <button id="audioControlButton" class="audio-button">Play Sound</button>
+
+  <audio id="backgroundAudio">
+    <source src="The_Sorting_Hat.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+    
+  </audio>
   <!-- Loading screen -->
   <div id="loadingScreen">
     <div id="loadingText">You are...</div>
     <div id="sparkles"></div>
+    
+   
+
   </div>
 
   <script>
