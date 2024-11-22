@@ -3,34 +3,81 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Hufflepuff</title>
+  <title>Hufflepuff Magic Enhanced</title>
   <style>
     /* ตั้งค่าพื้นฐาน */
     body {
       margin: 0;
       padding: 0;
       font-family: 'Times New Roman', serif;
-      background: #B5803E; /* สีทองของ Hufflepuff */
+      background: radial-gradient(circle at center, #B5803E, #261806); /* สีทองของ Hufflepuff */
       color: #fff;
+      height: 100vh;
+      overflow: hidden;
       display: flex;
       flex-direction: column;
-      justify-content: center;
       align-items: center;
-      height: 100vh;
-      overflow: hidden; /* ปิดการเลื่อน */
+      justify-content: center;
     }
 
     /* ชื่อบ้าน */
     .house-name {
-      font-size: 3em; /* ขนาดตัวอักษรใหญ่ */
+      font-size: 4em;
       font-weight: bold;
       margin: 0;
       text-align: center;
-      z-index: 2;
-      text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5); /* เงา */
+      text-shadow: 0 0 20px rgba(255, 255, 255, 0.8), 
+                   0 0 40px rgba(255, 255, 204, 0.6), 
+                   0 0 60px rgba(204, 204, 153, 0.4);
     }
 
-    /* พื้นที่ของฟองอากาศ */
+    /* โลโก้ */
+    .house-logo {
+      width: 250px;
+      height: auto;
+      margin-top: 20px;
+      animation: float 4s ease-in-out infinite;
+      filter: drop-shadow(0 0 30px rgba(255, 255, 153, 0.9)) 
+              drop-shadow(0 0 50px rgba(255, 223, 0, 0.7))
+              drop-shadow(0 0 80px rgba(204, 204, 102, 0.5));
+    }
+
+    @keyframes float {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-20px);
+      }
+    }
+
+    /* กลอน */
+    .poem {
+      margin: 20px 0;
+      font-size: 1.2em;
+      line-height: 1.5;
+      text-align: center;
+      white-space: pre-wrap;
+    }
+
+    /* ปุ่ม */
+    .toggle-button {
+      padding: 10px 20px;
+      font-size: 1em;
+      background-color: #fff;
+      color: #B5803E;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      position: relative;
+      z-index: 10; /* ทำให้ปุ่มอยู่ด้านบน */
+    }
+
+    .toggle-button:hover {
+      background-color: #ddd;
+    }
+
+    /* ฟองอากาศ */
     #bubbles {
       position: absolute;
       top: 0;
@@ -48,17 +95,15 @@
       height: 20px;
       background: rgba(255, 255, 255, 0.5); /* สีฟองโปร่งแสง */
       border-radius: 50%;
-      animation: rise 10s linear infinite; /* การลอยขึ้น */
+      animation: rise 10s linear infinite;
     }
 
-    /* เพิ่มความหลากหลายของขนาดฟอง */
     .bubble:nth-child(odd) {
       width: 30px;
       height: 30px;
       animation-duration: 12s;
     }
 
-    /* อนิเมชั่นฟองลอยขึ้น */
     @keyframes rise {
       0% {
         transform: translateX(0) translateY(0) scale(1);
@@ -72,47 +117,16 @@
         opacity: 0; /* จางหายไปเมื่อถึงขอบจอ */
       }
     }
-
-    /* โลโก้บ้าน */
-    .house-logo {
-      width: 200px;
-      height: auto;
-      margin-bottom: 20px;
-    }
-
-    /* กลอน */
-    .poem {
-      margin: 20px 0;
-      font-size: 1.2em;
-      line-height: 1.5;
-      text-align: center;
-      white-space: pre-wrap; /* ให้แสดงผลการเว้นบรรทัด */
-    }
-
-    /* ปุ่ม */
-    .toggle-button {
-      padding: 10px 20px;
-      font-size: 1em;
-      background-color: #fff;
-      color: #B5803E;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-
-    .toggle-button:hover {
-      background-color: #ddd;
-    }
   </style>
 </head>
 <body>
-  <!-- พื้นหลังฟองอากาศ -->
+  <!-- ฟองอากาศ -->
   <div id="bubbles"></div>
 
   <!-- ชื่อบ้าน -->
   <h1 class="house-name">Hufflepuff</h1>
 
-  <!-- โลโก้บ้าน -->
+  <!-- โลโก้ -->
   <img class="house-logo" src="Hufflepuff_logo.png" alt="Hufflepuff Logo">
 
   <!-- กลอน -->
@@ -155,7 +169,7 @@ A place of peace, forever kind!`;
       const bubble = document.createElement('div');
       bubble.classList.add('bubble');
       bubble.style.left = `${Math.random() * 100}vw`; // ตำแหน่งแนวนอนแบบสุ่ม
-      bubble.style.animationDelay = `${Math.random() * 5}s`; // เริ่มเวลาแตกต่างกัน
+      bubble.style.animationDelay = `${Math.random() * 5}s`; // เวลาเริ่มแตกต่างกัน
       bubbleContainer.appendChild(bubble);
 
       // ลบฟองเมื่อออกนอกจอ
