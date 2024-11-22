@@ -18,7 +18,6 @@ async function fetchDatabase() {
       ).join('\n');
   
       // แจ้งเตือนข้อมูลในฐานข้อมูล
-      alert(`Current Database:\n${databaseText}`);
     } catch (error) {
       console.error('Error fetching database:', error);
       alert("ไม่สามารถโหลดฐานข้อมูลได้ กรุณาลองใหม่อีกครั้ง.");
