@@ -1,43 +1,67 @@
-// Local database
-const database = [
-  { name: "Rifhan Ardae", id: "57747", house: "Ravenclaw" },
-  { name: "1", id: "1", house: "Gryffindor" },
-  { name: "2", id: "2", house: "Ravenclaw" },
-  { name: "3", id: "3", house: "Hufflepuff" },
-  { name: "4", id: "4", house: "Slytherin" },
-  { name: "Sarifa Ngoh", id: "56868", house: "Ravenclaw" },
-  { name: "AE", id: "61556", house: "Ravenclaw" },
-  { name: "Gty", id: "F", house: "Hufflepuff" }
+// URL ของ Google Apps Script Web App
+const scriptURL = 'https://script.google.com/macros/s/AKfycbwPxrqaVLEYhl2mOr0cJErtR3s_vxEKkXCf_UINPFnInjTlYnl2UrerTmpvrf3FnLbFEQ/exec';
 
-];
+let database = []; // จะเก็บข้อมูลจาก Web App
+
+// ดึงข้อมูลจาก Web App
+// ดึงข้อมูลจาก Web App
+async function fetchDatabase() {
+    try {
+      const response = await fetch(scriptURL);
+      if (!response.ok) throw new Error('Network response was not ok');
+      database = await response.json(); // อัปเดตฐานข้อมูล
+      console.log("Database loaded:", database);
+  
+      // แปลงฐานข้อมูลให้เป็นข้อความเพื่อแสดงใน Alert
+      const databaseText = database.map(
+        entry => `Name: ${entry.name}, ID: ${entry.id}, House: ${entry.house}`
+      ).join('\n');
+  
+      // แจ้งเตือนข้อมูลในฐานข้อมูล
+      alert(`Current Database:\n${databaseText}`);
+    } catch (error) {
+      console.error('Error fetching database:', error);
+      alert("ไม่สามารถโหลดฐานข้อมูลได้ กรุณาลองใหม่อีกครั้ง.");
+    }
+  }
+  
+
+// เรียก fetchDatabase เมื่อโหลดหน้าเว็บ
+window.onload = fetchDatabase;
 
 // Sorting Hat functionality
+// Sorting Hat functionality
 function sortHouse() {
-  const name = document.getElementById('name').value.trim();
-  const id = document.getElementById('password').value.trim();
+    // ดึงค่าจากฟอร์ม
+    const name = document.getElementById('name').value.trim();
+    const id = document.getElementById('password').value.trim();
 
-  if (!name || !id) {
-    alert("Please fill in both fields.");
-    return;
-  }
+    // ตรวจสอบว่ามีการกรอกข้อมูลครบหรือไม่
+    if (!name || !id) {
+        alert("Please fill in both fields.");
+        return;
+    }
 
-  // Find the user in the database
-  const user = database.find(entry => entry.name === name && entry.id === id);
+    // Debugging: ตรวจสอบค่าจากฟอร์มและฐานข้อมูล
+    console.log("Name input:", name);
+    console.log("ID input:", id);
+    console.log("Database:", database);
 
-  if (user) {
-    const housePage = `${user.house.toLowerCase()}.html`;
+    // ค้นหาผู้ใช้ในฐานข้อมูล (เปรียบเทียบทั้งชื่อและเลขประจำตัว)
+    const user = database.find(entry => entry.name === name && String(entry.id) === id);
 
-    // Show the loading screen
-    showLoadingScreen();
-
-    // Simulate loading time before redirecting
-    setTimeout(() => {
-      window.location.href = housePage;
-    }, 2000); // Wait for 2 seconds before redirect
-  } else {
-    alert("Invalid name or ID. Please try again.");
-  }
+    if (user) {
+        const housePage = `${user.house.toLowerCase()}.html`; // กำหนด URL ของหน้าบ้าน (house)
+        showLoadingScreen();
+        setTimeout(() => {
+            window.location.href = housePage;
+        }, 2000); // หน่วงเวลา 2 วินาทีก่อนเปลี่ยนหน้า
+    } else {
+        alert("Invalid name or ID. Please try again.");
+    }
 }
+
+  
 
 // Particle Effect
 const canvas = document.getElementById("particleCanvas");
@@ -105,15 +129,14 @@ function showLoadingScreen() {
   loadingScreen.style.display = 'flex';
 }
 
-
-
+// Audio and Subtitles
 const audio = document.getElementById("backgroundAudio");
 const audioButton = document.getElementById("audioControlButton");
 const subtitles = document.getElementById("subtitles");
 
 // ซับไตเติลและเวลา (หน่วยเป็นวินาที)
 const lyrics = [
-  { time: 0, text: "" }, // อินโทร (ไม่มีซับ)
+  { time: 0, text: "" },
   { time: 10.5, text: "One thousand years ago this story starts" },
   { time: 16, text: "There were four sorcerers with strong and wise hearts" },
   { time: 21, text: "Bold Gryffindor from wild moor" },
@@ -122,53 +145,46 @@ const lyrics = [
   { time: 29, text: "Shrewd Slytherin from fen" },
   { time: 36, text: "They had a dream to teach all that they knew" },
   { time: 41, text: "Witches and wizards came far and it grew" },
-  { time: 46 , text: "'Til a castle stood tall by the shores of a lake" },
+  { time: 46, text: "'Til a castle stood tall by the shores of a lake" },
   { time: 52, text: "And a thousand years later the magic remains" },
   { time: 67, text: "Old Hogwarts Sorting Hat sing me a song" },
   { time: 72, text: "Speak in my head tell me where I belong" },
-  { time: 77, text: "And when things look bad and there's no where to run" },
+  { time: 77, text: "And when things look bad and there's nowhere to run" },
   { time: 82, text: "Unite all the houses and we'll fight as one" },
   { time: 97, text: "Brave Godric Gryffindor favoured the strong" },
   { time: 102, text: "Those who had courage and knew right from wrong" },
   { time: 108, text: "And Rowena Ravenclaw taught only the best" },
   { time: 113, text: "So kind Helga Hufflepuff would teach all the rest" },
-  { time: 123, text: "But Salazar Slytherin had is own plans" },
+  { time: 123, text: "But Salazar Slytherin had his own plans" },
   { time: 128, text: "He thought the Muggle-borns didn't understand" },
   { time: 133, text: "The subtleties of magic and so he devised" },
   { time: 138, text: "The Chamber of Secrets with a monster inside" },
   { time: 154, text: "Old Hogwarts Sorting Hat sing me a song" },
   { time: 158, text: "Speak in my head tell me where I belong" },
-  { time: 164, text: "And when things look bad and there's no where to run" },
+  { time: 164, text: "And when things look bad and there's nowhere to run" },
   { time: 169, text: "Unite all the houses and we'll fight as one" },
   { time: 195, text: "Old Hogwarts Sorting Hat sing me a song" },
   { time: 200, text: "Speak in my head tell me where I belong" },
-  { time: 205, text: "And when things look bad and there's no where to run" },
+  { time: 205, text: "And when things look bad and there's nowhere to run" },
   { time: 210, text: "Unite all the houses and we'll fight as one" },
   { time: 220, text: "Unite all the houses and we'll fight as one." },
 ];
 
-
-
-// อัปเดตซับไตเติล
-let currentSubtitleIndex = 0; // เก็บตำแหน่งของซับปัจจุบัน
+let currentSubtitleIndex = 0;
 
 function updateSubtitles() {
   const currentTime = audio.currentTime;
 
-  // ตรวจสอบว่าถึงเวลาของซับถัดไปหรือยัง
   if (
-    currentSubtitleIndex < lyrics.length - 1 && // ตรวจสอบว่ามีซับถัดไป
+    currentSubtitleIndex < lyrics.length - 1 &&
     currentTime >= lyrics[currentSubtitleIndex + 1].time
   ) {
-    currentSubtitleIndex++; // เปลี่ยนไปยังซับถัดไป
+    currentSubtitleIndex++;
   }
 
-  // แสดงซับไตเติลปัจจุบัน
-  subtitles.innerText = lyrics[currentSubtitleIndex].text;
+  subtitles.innerText = lyrics[currentSubtitleIndex]?.text || "";
 }
 
-
-// ควบคุมเสียง
 audioButton.addEventListener("click", () => {
   if (audio.paused) {
     audio.play();
@@ -179,5 +195,4 @@ audioButton.addEventListener("click", () => {
   }
 });
 
-// อัปเดตซับเมื่อเล่นเสียง
 audio.addEventListener("timeupdate", updateSubtitles);
