@@ -3,50 +3,64 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Ravenclaw</title>
+  <title>Ravenclaw Magic Enhanced</title>
   <style>
-    /* ตั้งค่าให้เต็มหน้าจอ */
+    /* ตั้งค่าพื้นฐาน */
     body {
       margin: 0;
       padding: 0;
       font-family: 'Times New Roman', serif;
-      background: #18314F;
+      background: radial-gradient(circle at center, #1B2C43, #081527); /* พื้นหลังสีฟ้าเข้ม */
       color: #fff;
+      height: 100vh;
+      overflow: hidden;
       display: flex;
       flex-direction: column;
-      justify-content: center;
       align-items: center;
-      height: 100vh;
-      overflow: hidden; /* ปิดการเลื่อน */
-      position: relative;
+      justify-content: center;
     }
 
     /* ชื่อบ้าน */
     .house-name {
-      font-size: 3em; /* ขนาดตัวอักษรใหญ่ */
+      font-size: 4em;
       font-weight: bold;
       margin: 0;
       text-align: center;
-      z-index: 2;
-      text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5); /* เงา */
+      text-shadow: 0 0 20px rgba(173, 216, 230, 0.8), 
+                   0 0 40px rgba(135, 206, 250, 0.6), 
+                   0 0 60px rgba(70, 130, 180, 0.4);
     }
 
+    /* โลโก้ */
     .house-logo {
-      width: 200px;
+      width: 250px;
       height: auto;
-      margin-bottom: 20px;
-      z-index: 2;
+      margin-top: 20px;
+      animation: float 4s ease-in-out infinite;
+      filter: drop-shadow(0 0 30px rgba(135, 206, 250, 0.9)) 
+              drop-shadow(0 0 50px rgba(70, 130, 180, 0.7))
+              drop-shadow(0 0 80px rgba(25, 25, 112, 0.5));
     }
 
+    @keyframes float {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-20px);
+      }
+    }
+
+    /* กลอน */
     .poem {
       margin: 20px 0;
       font-size: 1.2em;
       line-height: 1.5;
       text-align: center;
-      white-space: pre-wrap; /* ให้แสดงผลการเว้นบรรทัด */
-      z-index: 2;
+      white-space: pre-wrap;
     }
 
+    /* ปุ่ม */
     .toggle-button {
       padding: 10px 20px;
       font-size: 1em;
@@ -55,14 +69,15 @@
       border: none;
       border-radius: 5px;
       cursor: pointer;
-      z-index: 2;
+      position: relative;
+      z-index: 10; /* ทำให้ปุ่มอยู่ด้านบน */
     }
 
     .toggle-button:hover {
       background-color: #ddd;
     }
 
-    /* เอฟเฟกต์พื้นหลัง */
+    /* พื้นหลังดวงดาว */
     #starfield {
       position: absolute;
       top: 0;
@@ -71,7 +86,6 @@
       height: 100%;
       z-index: -1; /* อยู่ด้านหลังเนื้อหา */
       overflow: hidden;
-      background: radial-gradient(circle at center, #1B2C43, #0F1824); /* สีพื้นหลัง */
     }
 
     .star {
@@ -100,7 +114,7 @@
   <!-- ชื่อบ้าน -->
   <h1 class="house-name">Ravenclaw</h1>
 
-  <!-- โลโก้บ้าน -->
+  <!-- โลโก้ -->
   <img class="house-logo" src="Ravenclaw_logo.png" alt="Ravenclaw Logo">
 
   <!-- กลอน -->
@@ -128,9 +142,9 @@ Dreams take flight to skies untold
 Knowledge shines, a light so bold!`;
         buttonElement.textContent = 'เปลี่ยนเป็นภาษาไทย';
       } else {
-        poemElement.textContent = `สู่ Ravenclaw อันล้ำค่า  
-ปัญญาแกร่งและหัวใจ  
-เติมความฝันพุ่งไปไกล  
+        poemElement.textContent = `สู่ Ravenclaw อันล้ำค่า,  
+ปัญญาแกร่งและหัวใจ,  
+เติมความฝันพุ่งไปไกล,  
 แสงความรู้สู่เบื้องบน!`;
         buttonElement.textContent = 'Change to English';
       }
