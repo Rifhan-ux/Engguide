@@ -6,22 +6,34 @@ let database = []; // จะเก็บข้อมูลจาก Web App
 // ดึงข้อมูลจาก Web App
 // ดึงข้อมูลจาก Web App
 async function fetchDatabase() {
-    try {
-      const response = await fetch(scriptURL);
-      if (!response.ok) throw new Error('Network response was not ok');
-      database = await response.json(); // อัปเดตฐานข้อมูล
-      console.log("Database loaded:", database);
-  
-      // แปลงฐานข้อมูลให้เป็นข้อความเพื่อแสดงใน Alert
-      const databaseText = database.map(
-        entry => `Name: ${entry.name}, ID: ${entry.id}, House: ${entry.house}`
-      ).join('\n');
-  
-      // แจ้งเตือนข้อมูลในฐานข้อมูล
-    } catch (error) {
-      console.error('Error fetching database:', error);
-      alert("ไม่สามารถโหลดฐานข้อมูลได้ กรุณาลองใหม่อีกครั้ง.");
-    }
+    async function fetchDatabase() {
+        try {
+          const response = await fetch(scriptURL);
+          if (!response.ok) throw new Error('Network response was not ok');
+          const rawData = await response.json(); // ดึงข้อมูลจาก Web App
+      
+          // กรองข้อมูลให้เหลือเฉพาะข้อมูลล่าสุดของแต่ละ name
+          const uniqueData = {};
+          rawData.forEach(entry => {
+            uniqueData[entry.name] = entry; // ทับข้อมูลเดิมด้วยข้อมูลใหม่ (ใช้ key เป็น name)
+          });
+      
+          // เปลี่ยนเป็น array สำหรับใช้งาน
+          database = Object.values(uniqueData);
+      
+          console.log("Filtered Database (Latest Only):", database);
+      
+          // แจ้งเตือนข้อมูลในฐานข้อมูล
+          const databaseText = database.map(
+            entry => `Name: ${entry.name}, ID: ${entry.id}, House: ${entry.house}`
+          ).join('\n');
+          alert(`Filtered Database:\n${databaseText}`);
+        } catch (error) {
+          console.error('Error fetching database:', error);
+          alert("ไม่สามารถโหลดฐานข้อมูลได้ กรุณาลองใหม่อีกครั้ง.");
+        }
+      }
+      
   }
   
 
