@@ -26,7 +26,7 @@ async function fetchDatabase() {
         const databaseText = database.map(
             entry => `Name: ${entry.name}, ID: ${entry.id}, House: ${entry.house}`
         ).join('\n');
-                                  alert(`Filtered Database:\n${databaseText}`); // โชว์แจ้งเตือนเมื่อโหลดหน้าเว็บ
+                                ///  alert(`Filtered Database:\n${databaseText}`); // โชว์แจ้งเตือนเมื่อโหลดหน้าเว็บ
     } catch (error) {
         console.error('Error fetching database:', error);
         alert("ไม่สามารถโหลดฐานข้อมูลได้ กรุณาลองใหม่อีกครั้ง.");
