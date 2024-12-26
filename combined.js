@@ -1,5 +1,5 @@
 // URL ของ Google Apps Script Web App
-const scriptURL = 'https://script.google.com/macros/s/AKfycbz72Ep5-08h4Ca53FVFfKaYyfP5qOeeyAkkb8rp6qCwveZtOJzu9vJC0mZW9ZpWcyzeAA/exec';
+const scriptURL = 'https://script.google.com/macros/s/AKfycbwbxsyP3FtPPgUyFv0WDXoK0hc_8-0xF1QfPTLZbzvBLrSc5MCxcBzHX1BaZ5TDTJAbag/exec';
 
 let database = []; // จะเก็บข้อมูลจาก Web App
 
